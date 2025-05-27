@@ -1,4 +1,5 @@
 import pygame
+import sys
 from pygame.locals import *
 
 world =[["  ","lB","  ","  ","  "],
@@ -11,10 +12,10 @@ world =[["  ","lB","  ","  ","  "],
 #Quartos
 
 
-l1 = [["X","X","X","X"," ","X","X","X","X"],
+l1 = [["X","X","X","X","L","X","X","X","X"],
       ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," ","X"," ","E"," ","X"," ","X"],
-      ["X"," "," "," "," ","E"," "," ","X"],
+      ["X"," ","X"," "," "," ","X"," ","X"],
+      ["X"," "," "," "," "," "," "," ","X"],
       [" "," ","X"," "," "," ","X"," "," "],
       ["X"," "," "," "," "," "," "," ","X"],
       ["X"," ","X"," "," "," ","X"," ","X"],
@@ -25,7 +26,7 @@ l2 = [["X","X","X","X","X","X","X","X","X"],
       ["X"," "," "," "," "," "," "," ","X"],
       ["X"," ","E"," "," "," "," "," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," "," "],
+      ["X"," "," "," ","K"," "," "," "," "],
       ["X"," ","X"," "," "," "," "," ","X"],
       ["X"," ","X"," "," "," "," "," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
@@ -54,62 +55,62 @@ l4 = [["X","X","X","X"," ","X","X","X","X"],
 l5 = [["X","X","X","X","X","X","X","X","X"],
       ["X"," "," "," "," "," "," "," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
+      ["X"," ","E"," "," "," ","E"," ","X"],
+      ["X"," "," "," ","K"," "," "," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
+      ["X","X"," "," "," "," "," ","X","X"],
       ["X","X","X","X"," ","X","X","X","X"]]
 
-l6 = [["X","X","X","X"," ","X","X","X","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      [" "," "," "," "," "," "," "," "," "],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
+l6 = [["X"," "," ","X"," ","X","X","X","X"],
+      ["X"," "," ","X"," "," "," "," ","X"],
+      ["X"," "," ","X"," "," "," "," ","X"],
+      ["X"," "," ","X"," "," "," "," ","X"],
+      ["X","K"," ","X"," "," "," "," ","X"],
+      ["X"," "," ","X"," "," "," "," ","X"],
+      ["X"," "," ","X"," "," "," "," ","X"],
+      ["X"," "," ","X"," "," "," "," ","X"],
       ["X","X","X","X"," ","X","X","X","X"]]
 
 l7 = [["X","X","X","X"," ","X","X","X","X"],
+      ["X"," "," ","X","X","X"," "," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      [" "," "," "," "," "," "," "," "," "],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X","X","X","X"," ","X","X","X","X"]]
+      ["L"," "," "," "," "," "," "," ","X"],
+      ["X"," "," ","X","X","X","X"," ","X"],
+      ["X"," "," ","X"," "," "," "," ","X"],
+      ["X"," "," ","X"," "," "," "," ","X"],
+      ["X"," "," ","X"," ","X","X","X","X"]]
 
-l8 = [["X","X","X","X"," ","X","X","X","X"],
+l8 = [["X","X","X","X","L","X","X","X","X"],
+      ["X","X"," "," "," "," "," "," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      [" "," "," "," "," "," "," "," "," "],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X","X","X","X"," ","X","X","X","X"]]
+      ["X","X"," "," "," "," "," "," ","X"],
+      ["X"," "," "," "," "," ","X"," "," "],
+      ["X"," ","X"," "," "," "," "," ","X"],
+      ["X"," "," "," "," ","X"," "," ","X"],
+      ["X"," "," ","X"," "," "," "," ","X"],
+      ["X","X","X","X","X","X","X","X","X"]]
 
 l9 = [["X","X","X","X"," ","X","X","X","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      [" "," "," "," "," "," "," "," "," "],
+      ["X"," "," ","X"," "," "," "," "," "],
+      ["X"," "," ","X"," "," "," "," "," "],
+      ["X"," "," ","X","X","X","X","X","X"],
+      ["X"," "," "," "," "," "," "," "," "],
       ["X"," "," "," "," "," "," "," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
       ["X","X","X","X"," ","X","X","X","X"]]
 
-lA = [["X","X","X","X"," ","X","X","X","X"],
+lA = [["X","X","X","X","X","X","X","X","X"],
+      [" "," "," "," "," "," "," "," ","X"],
+      [" "," "," "," "," "," "," "," ","X"],
+      ["X","X","X"," "," "," "," "," ","X"],
+      [" "," ","X","X","X"," "," "," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
-      [" "," "," "," "," "," "," "," "," "],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X","X","X","X"," ","X","X","X","X"]]
+      ["X","X","X","X","X","X","X","X","X"]]
 
 lB = [["X","X","X","X"," ","X","X","X","X"],
       ["X"," "," "," "," "," "," "," ","X"],
@@ -157,7 +158,7 @@ def tilecolset(lyt):                       #Função de colisão das paredes: cr
 
     for i in range(len(lyt)):
         for k in range(len(lyt[i])):
-            if lyt[i][k] == "X":
+            if lyt[i][k] == "X" or lyt[i][k] == "L":
                 sclX.append(k*32)
                 sclY.append(i*32)
     
@@ -193,8 +194,49 @@ def mov(self, player):
         self.move_ip((player.x-self.x+1)/abs(player.x-self.x+1),(player.y-self.y+1)/abs(player.y-self.y+1))
 
 
+def lock_set(lyt):
 
-                
+
+    for i in range(len(lyt)):
+        for k in range(len(lyt[i])):
+            if lyt[i][k] == "L":
+                lock = pygame.Rect(k*32,i*32, 32, 32)
+                return lock
+   
+def lock_col_set(lyt,scl):
+
+
+    for i in range(len(lyt)):
+        for k in range(len(lyt[i])):
+            if lyt[i][k] == "L":
+                scl[0].append(k*32)
+                scl[1].append(i*32)
+   
+
+
+def key_set(lyt):
+
+    for i in range(len(lyt)):
+        for k in range(len(lyt[i])):
+            if lyt[i][k] == "K":
+                key = (pygame.Rect(k*32,i*32, 32, 32))
+                return key
+
+def keyroom(lyt):
+
+   for i in range(len(lyt)):
+        for k in range(len(lyt[i])):
+            if lyt[i][k] == "K":
+                keyroom = True
+                return keyroom
+
+def lockroom(lyt):
+
+   for i in range(len(lyt)):
+        for k in range(len(lyt[i])):
+            if lyt[i][k] == "L":
+                lockroom = True
+                return lockroom            
 
 
 #Funções gráficas-----#
@@ -208,6 +250,10 @@ def render(lyt, e):    #Função de renderização: de acordo com a váriavel de
         for k in range(len(lyt[i])):
             if lyt[i][k] == "X":
                 pygame.draw.rect(win, GRN, pygame.Rect(k*32, i *32, 32, 32))
+            if lyt[i][k] == "L":
+                pygame.draw.rect(win, BLU, pygame.Rect(k*32, i *32, 32, 32))
+            if lyt[i][k] == "K":
+                pygame.draw.rect(win, BLU, pygame.Rect(k*32, i *32, 32, 32))
     
     for i in e:         #Renderiza Inimigos
         pygame.draw.rect(win, RED, i)
@@ -217,10 +263,36 @@ def render(lyt, e):    #Função de renderização: de acordo com a váriavel de
 
 #---------------------#
 
+#Funções de chave e cadeado#
+
+def key_collect(key, obj, lyt,pk):
+
+    if obj.colliderect(key):
+        lyt[key.y//32][key.x//32] = " "
+        key = []
+        pk +=1
+        key_set(lyt)
+
+def lock_delete(lck, obj, lyt,pk):
+
+    if obj.colliderect(lck) and pk > 0:
+        lyt[lck.y//32][lck.x//32] = " "
+        lck = []
+        pk -=1
+        lock_col_set(lyt, [colX,colY])
+
+
+
 #Outras funções-------#
 
 
+time = 60*60
+#font = pygame.font.SysFont(None, 36)
 
+#def timerender(t):
+#    time_text = font.render(f"Time: {t}", True, WHT)
+#    win.blit(time_text, 0, winH)
+    
 
 
 
@@ -234,7 +306,8 @@ clock = pygame.time.Clock() #FPS
 #Define altura e largura da tela
 winW = 288
 winH = 288
-win = pygame.display.set_mode((winW,winH))
+realH = 320
+win = pygame.display.set_mode((winW,realH))
 
 
 #Cores
@@ -254,6 +327,7 @@ sqrInitPosY = winW/2
 
 square = pygame.Rect(winW/2,winH/2,30,30)
 
+pkeys = 0 #Essa variável são as chaves do jogador
 
 
 #Coordenadas do quarto:
@@ -289,6 +363,9 @@ while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto n
     localrun = True
 
     enemies = enemylist(currentRoom)
+    locks = lock_set(currentRoom)
+    keys = key_set(currentRoom)
+   
     
 
     while localrun:  #Loop de quarto: repete o tempo todo
@@ -299,7 +376,11 @@ while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto n
                 run = False
 
         colX = tilecolset(currentRoom)[0]           #Define colisões X e Y
-        colY = tilecolset(currentRoom)[1] 
+        colY = tilecolset(currentRoom)[1]
+
+
+        #scl = [colX,colY]
+        #lock_col_set(scl) 
 
     
         #Mover o quadrado
@@ -308,9 +389,29 @@ while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto n
         for i in range(len(enemies)):   #Movimenta os inimigos
             mov(enemies[i], square)
 
+        #Subtrai o tempo
+        time -= 1
+
+        #Detecta colisão com a chave
+        if keyroom(vardict[world[ly][lx]]):
+            if square.colliderect(keys):
+                vardict[world[ly][lx]][keys.y//32][keys.x//32] = " "
+                keys = []
+                pkeys +=1
+        key_set(vardict[world[ly][lx]])
+        #Detecta colisão com cadeado
+        if lockroom(vardict[world[ly][lx]]):
+            if square.colliderect(locks) and pkeys > 0:
+                vardict[world[ly][lx]][locks.y//32][locks.x//32] = " "
+                locks = []
+                pkeys -=1
+                lock_col_set(vardict[world[ly][lx]], [colX,colY])
+
+        
 
         #Renderiza os objetos
         render(currentRoom, enemies)
+        #timerender(time)
 
         #Checa a saída do quarto
         if square.x < 0:                #Sair do quarto...
