@@ -1,5 +1,6 @@
 import pygame
 import sys
+import random as rnd
 from pygame.locals import *
 
 world =[["  ","lB","  ","  ","  "],
@@ -141,6 +142,33 @@ def movement(obj, spd):             #Função de movimento: Jogador se move a um
         obj.move_ip(0,spd)
 
 
+def e_dstr(atk,e,t):                  #Função de destruir o inimigo: exclui objeto da lista caso em colisão com objeto de ataque
+    for i in range(len(e)):
+        if atk.colliderect(e[i]):
+            e.pop(i)
+            t += rnd.randint(5,10)*60
+
+def p_atk(pl,state):                      #Função de ataque: Spawna a "arma" do jogador caso certa tecla for pressionada
+    k = pygame.key.get_pressed()
+    if k[K_SPACE]:
+        if state == "Left":
+            dagger = pygame.Rect(pl.x-32,pl.y-32,32,96)
+        else:
+            dagger = pygame.Rect(pl.x+pl.width,pl.y-32,32,96)
+    else:
+        dagger = pygame.Rect(0,0,0,0)
+    
+    pygame.draw.rect(win, RED, dagger)
+    return dagger
+
+def mov_check():                    #Função de estado: detecta se o jogador está virado para a esquerda ou direita
+    k = pygame.key.get_pressed()
+    if k[K_LEFT]:
+        state = "Left"
+        return state
+    if k[K_RIGHT]:
+        state = "Right"
+        return state
 
 
 
@@ -242,7 +270,7 @@ def lockroom(lyt):
 #Funções gráficas-----#
 
 def render(lyt, e):    #Função de renderização: de acordo com a váriavel de matriz fornecida, preenche a cena com tiles
-    win.fill(BLK)   #Preenche o fundo
+
     pygame.draw.rect(win, WHT, square)
     
 
@@ -259,6 +287,10 @@ def render(lyt, e):    #Função de renderização: de acordo com a váriavel de
         pygame.draw.rect(win, RED, i)
     
     pygame.display.flip()   #No final de tudo, atualiza a imagem
+
+
+def atk_render(atk):        #Função de renderização de ataque: renderiza o ataque
+    pygame.draw.rect(win, RED, atk)
 
 
 #---------------------#
@@ -287,13 +319,19 @@ def lock_delete(lck, obj, lyt,pk):
 
 
 time = 60*60
-#font = pygame.font.SysFont(None, 36)
+pygame.font.init()
+font = pygame.font.SysFont(pygame.font.get_default_font(), 36)
 
-#def timerender(t):
-#    time_text = font.render(f"Time: {t}", True, WHT)
-#    win.blit(time_text, 0, winH)
+def timerender(t):
+
+    time_text = font.render(f"Time: {t//60}", True, WHT)
+    win.blit(time_text, (winW-100,realH-30))
+
+def keyrender(k):
+    key_text = font.render(f"Keys: {k}", True, WHT)
+    win.blit(key_text, (10,realH-30))
+
     
-
 
 
 
@@ -369,7 +407,11 @@ while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto n
     
 
     while localrun:  #Loop de quarto: repete o tempo todo
-    
+
+        if time == 1:   #Sair se o tempo for igual a zero
+            localrun =False
+            run = False
+
         for e in pygame.event.get():    #Código para sair do jogo
             if e.type == QUIT:
                 localrun = False
@@ -379,8 +421,7 @@ while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto n
         colY = tilecolset(currentRoom)[1]
 
 
-        #scl = [colX,colY]
-        #lock_col_set(scl) 
+
 
     
         #Mover o quadrado
@@ -408,10 +449,27 @@ while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto n
                 lock_col_set(vardict[world[ly][lx]], [colX,colY])
 
         
+        #Detecta o ataque do jogador
+        weapon = p_atk(square,mov_check())
+
+
+        #Detecta colisão de ataque com inimigo
+        e_dstr(weapon,enemies,time)
+
+        #Detecta a colisão do jogador com inimigos
+        for e in enemies:
+            if square.colliderect(e):
+                time -= 1
+
+        
 
         #Renderiza os objetos
+        win.fill(BLK)   #Preenche o fundo
+        timerender(time)
+        keyrender(pkeys)
+        atk_render(weapon)
         render(currentRoom, enemies)
-        #timerender(time)
+        
 
         #Checa a saída do quarto
         if square.x < 0:                #Sair do quarto...
@@ -449,4 +507,15 @@ while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto n
         #Define o FPS
         clock.tick(60)
 
- 
+while True:
+
+    for e in pygame.event.get():    #Código para sair do jogo
+            if e.type == QUIT:
+                pygame.quit()
+                sys.exit()
+    gameover = pygame.font.SysFont(pygame.font.get_default_font(), 40)
+    gameover_text = font.render("YOUR TIME HAS ENDED", True, RED)
+    win.fill(BLK)
+    win.blit(gameover_text, (0,realH/2))
+    pygame.display.flip()
+    
