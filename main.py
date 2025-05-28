@@ -3,6 +3,20 @@ import sys
 import random as rnd
 from pygame.locals import *
 
+#Imagens;
+
+LockImage = pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\Lock.jpeg", "LockImage")
+
+EnemyImage = [pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\scorpion_0.png", "Scorpion1"),
+              pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\scorpion_1.png", "Scorpion2"),
+              pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\scorpion_2.png", "Scorpion1fl"),
+              pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\scorpion_3.png", "Scorpion2fl"),
+]
+
+
+
+
+
 world =[["  ","lB","  ","  ","  "],
         ["  ","l9","lA","  ","  "],
         ["  ","l8","l7","  ","  "],
@@ -146,7 +160,7 @@ def e_dstr(atk,e,t):                  #Função de destruir o inimigo: exclui ob
     for i in range(len(e)):
         if atk.colliderect(e[i]):
             e.pop(i)
-            t += rnd.randint(5,10)*60
+            t += 600
 
 def p_atk(pl,state):                      #Função de ataque: Spawna a "arma" do jogador caso certa tecla for pressionada
     k = pygame.key.get_pressed()
@@ -161,14 +175,15 @@ def p_atk(pl,state):                      #Função de ataque: Spawna a "arma" d
     pygame.draw.rect(win, RED, dagger)
     return dagger
 
-def mov_check():                    #Função de estado: detecta se o jogador está virado para a esquerda ou direita
-    k = pygame.key.get_pressed()
-    if k[K_LEFT]:
-        state = "Left"
-        return state
-    if k[K_RIGHT]:
-        state = "Right"
-        return state
+def mov_check():
+    if pygame.key.get_pressed()[K_LEFT] or pygame.key.get_pressed()[K_RIGHT]:                    #Função de estado: detecta se o jogador está virado para a esquerda ou direita
+        k = pygame.key.get_pressed()
+        if k[K_LEFT]:
+            state = "Left"
+            return state
+        elif k[K_RIGHT]:
+            state = "Right"
+            return state
 
 
 
@@ -269,7 +284,7 @@ def lockroom(lyt):
 
 #Funções gráficas-----#
 
-def render(lyt, e):    #Função de renderização: de acordo com a váriavel de matriz fornecida, preenche a cena com tiles
+def render(lyt, e, fr):    #Função de renderização: de acordo com a váriavel de matriz fornecida, preenche a cena com tiles
 
     pygame.draw.rect(win, WHT, square)
     
@@ -279,12 +294,15 @@ def render(lyt, e):    #Função de renderização: de acordo com a váriavel de
             if lyt[i][k] == "X":
                 pygame.draw.rect(win, GRN, pygame.Rect(k*32, i *32, 32, 32))
             if lyt[i][k] == "L":
-                pygame.draw.rect(win, BLU, pygame.Rect(k*32, i *32, 32, 32))
+                win.blit(LockImage, pygame.Rect(k*32, i *32, 32, 32))
             if lyt[i][k] == "K":
                 pygame.draw.rect(win, BLU, pygame.Rect(k*32, i *32, 32, 32))
     
     for i in e:         #Renderiza Inimigos
-        pygame.draw.rect(win, RED, i)
+        if i.x > square.x:
+            win.blit(EnemyImage[fr//30], i)
+        else:
+            win.blit(EnemyImage[2+(fr//30)],i)
     
     pygame.display.flip()   #No final de tudo, atualiza a imagem
 
@@ -292,6 +310,8 @@ def render(lyt, e):    #Função de renderização: de acordo com a váriavel de
 def atk_render(atk):        #Função de renderização de ataque: renderiza o ataque
     pygame.draw.rect(win, RED, atk)
 
+def image_transform():
+    LockImage.convert(WHT, 0)
 
 #---------------------#
 
@@ -322,9 +342,9 @@ time = 60*60
 pygame.font.init()
 font = pygame.font.SysFont(pygame.font.get_default_font(), 36)
 
-def timerender(t):
+def timerender(t, c):
 
-    time_text = font.render(f"Time: {t//60}", True, WHT)
+    time_text = font.render(f"Time: {t//60}", True, c)
     win.blit(time_text, (winW-100,realH-30))
 
 def keyrender(k):
@@ -356,7 +376,7 @@ RED = (255, 0, 0)
 BLU = (0, 0, 255)
 GRN = (0, 255, 0)
 
-
+currentframe = 0
 
 #Posição e tamanho do objeto
 
@@ -367,6 +387,7 @@ square = pygame.Rect(winW/2,winH/2,30,30)
 
 pkeys = 0 #Essa variável são as chaves do jogador
 
+weapon_time = 0 #Variável para o tempo do ataque
 
 #Coordenadas do quarto:
 
@@ -450,25 +471,29 @@ while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto n
 
         
         #Detecta o ataque do jogador
-        weapon = p_atk(square,mov_check())
+        
+        #weapon = p_atk(square,mov_check())
 
 
         #Detecta colisão de ataque com inimigo
-        e_dstr(weapon,enemies,time)
-
+        #e_dstr(weapon,enemies,time)
+        timecolor = WHT
         #Detecta a colisão do jogador com inimigos
         for e in enemies:
             if square.colliderect(e):
                 time -= 1
+                timecolor = RED
 
-        
+        currentframe += 1     #Váriavel para indicar o atual frame do jogo
+        if currentframe  == 60:
+            currentframe = 0        
 
         #Renderiza os objetos
         win.fill(BLK)   #Preenche o fundo
-        timerender(time)
+        timerender(time, timecolor)
         keyrender(pkeys)
-        atk_render(weapon)
-        render(currentRoom, enemies)
+        #atk_render(weapon)
+        render(currentRoom, enemies, currentframe)
         
 
         #Checa a saída do quarto
@@ -507,7 +532,7 @@ while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto n
         #Define o FPS
         clock.tick(60)
 
-while True:
+while time  == 0:
 
     for e in pygame.event.get():    #Código para sair do jogo
             if e.type == QUIT:
