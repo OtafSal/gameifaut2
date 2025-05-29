@@ -7,6 +7,22 @@ from pygame.locals import *
 
 LockImage = pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\Lock.jpeg", "LockImage")
 
+KeyImage = pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\Key.png", "KeyImage")
+
+WallImage = pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\python\\gameifaut2\\Images\\Wall.png", "Wall")
+
+PlayerImage = [pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_0.png", "Player1"),
+               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_1.png", "Player2"),
+               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_2.png", "Player3"),
+               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_3.png", "Player4"),
+               
+               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_4.png", "Player1fl"),
+               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_5.png", "Player2fl"),
+               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_6.png", "Player3fl"),
+               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_7.png", "Player4fl"),]
+
+
+
 EnemyImage = [pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\scorpion_0.png", "Scorpion1"),
               pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\scorpion_1.png", "Scorpion2"),
               pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\scorpion_2.png", "Scorpion1fl"),
@@ -285,18 +301,29 @@ def lockroom(lyt):
 #Funções gráficas-----#
 
 def render(lyt, e, fr):    #Função de renderização: de acordo com a váriavel de matriz fornecida, preenche a cena com tiles
-
-    pygame.draw.rect(win, WHT, square)
+    if pygame.key.get_pressed()[K_UP] or pygame.key.get_pressed()[K_DOWN] or pygame.key.get_pressed()[K_LEFT] or pygame.key.get_pressed()[K_RIGHT]:
+        if pygame.key.get_pressed()[K_LEFT]:
+            win.blit(PlayerImage[fr//15], square)
+        else:
+            win.blit(PlayerImage[4+(fr//15)], square)
+    else:
+        win.blit(PlayerImage[5], square)            
     
+
+
+
+
+
+
 
     for i in range(len(lyt)):
         for k in range(len(lyt[i])):
             if lyt[i][k] == "X":
-                pygame.draw.rect(win, GRN, pygame.Rect(k*32, i *32, 32, 32))
+                win.blit(WallImage, pygame.Rect(k*32, i *32, 32, 32))
             if lyt[i][k] == "L":
                 win.blit(LockImage, pygame.Rect(k*32, i *32, 32, 32))
             if lyt[i][k] == "K":
-                pygame.draw.rect(win, BLU, pygame.Rect(k*32, i *32, 32, 32))
+                win.blit(KeyImage, pygame.Rect(k*32, i *32, 32, 32))
     
     for i in e:         #Renderiza Inimigos
         if i.x > square.x:
@@ -375,6 +402,7 @@ BLK = (0,0,0)
 RED = (255, 0, 0)
 BLU = (0, 0, 255)
 GRN = (0, 255, 0)
+BRN = (25, 16, 9)
 
 currentframe = 0
 
@@ -489,7 +517,8 @@ while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto n
             currentframe = 0        
 
         #Renderiza os objetos
-        win.fill(BLK)   #Preenche o fundo
+        win.fill(BLK)
+        pygame.draw.rect(win, BRN, (0, 0, winW, winH))   #Preenche o fundo
         timerender(time, timecolor)
         keyrender(pkeys)
         #atk_render(weapon)
