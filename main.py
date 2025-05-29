@@ -5,28 +5,28 @@ from pygame.locals import *
 
 #Imagens;
 
-LockImage = pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\Lock.jpeg", "LockImage")
+LockImage = pygame.image.load("./Images/Lock.jpeg", "LockImage")
 
-KeyImage = pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\Key.png", "KeyImage")
+KeyImage = pygame.image.load("./Images/Key.png", "KeyImage")
 
-WallImage = pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\python\\gameifaut2\\Images\\Wall.png", "Wall")
+WallImage = pygame.image.load("./Images/Wall.png", "Wall")
 
-PlayerImage = [pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_0.png", "Player1"),
-               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_1.png", "Player2"),
-               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_2.png", "Player3"),
-               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_3.png", "Player4"),
-               
-               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_4.png", "Player1fl"),
-               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_5.png", "Player2fl"),
-               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_6.png", "Player3fl"),
-               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_7.png", "Player4fl"),]
+PlayerImage = [pygame.image.load("./Images/player_0.png", "Player1"),
+               pygame.image.load("./Images/player_1.png", "Player2"),
+               pygame.image.load("./Images/player_2.png", "Player3"),
+               pygame.image.load("./Images/player_3.png", "Player4"),
+
+               pygame.image.load("./Images/player_4.png", "Player1fl"),
+               pygame.image.load("./Images/player_5.png", "Player2fl"),
+               pygame.image.load("./Images/player_6.png", "Player3fl"),
+               pygame.image.load("./Images/player_7.png", "Player4fl"),]
 
 
 
-EnemyImage = [pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\scorpion_0.png", "Scorpion1"),
-              pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\scorpion_1.png", "Scorpion2"),
-              pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\scorpion_2.png", "Scorpion1fl"),
-              pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\scorpion_3.png", "Scorpion2fl"),
+EnemyImage = [pygame.image.load("./Images/scorpion_0.png", "Scorpion1"),
+              pygame.image.load("./Images/scorpion_1.png", "Scorpion2"),
+              pygame.image.load("./Images/scorpion_2.png", "Scorpion1fl"),
+              pygame.image.load("./Images/scorpion_3.png", "Scorpion2fl"),
 ]
 
 
@@ -187,7 +187,7 @@ def p_atk(pl,state):                      #Função de ataque: Spawna a "arma" d
             dagger = pygame.Rect(pl.x+pl.width,pl.y-32,32,96)
     else:
         dagger = pygame.Rect(0,0,0,0)
-    
+
     pygame.draw.rect(win, RED, dagger)
     return dagger
 
@@ -209,7 +209,7 @@ def mov_check():
 #Funções de colisão----#
 
 def tilecolset(lyt):                       #Função de colisão das paredes: cria uma lista com todas as posições com paredes (0 para X e 1 para Y)
-    
+
     scl = []
     sclX = []
     sclY = []
@@ -220,10 +220,10 @@ def tilecolset(lyt):                       #Função de colisão das paredes: cr
             if lyt[i][k] == "X" or lyt[i][k] == "L":
                 sclX.append(k*32)
                 sclY.append(i*32)
-    
+
     scl = [sclX, sclY]
     return scl
-                
+
 def tilecoldetect(X, Y, obj):               #2° Função de colião das paredes: detecta se há uma colisão entre o objeto especificado e cada uma das paredes
 
     rtn = False
@@ -232,7 +232,7 @@ def tilecoldetect(X, Y, obj):               #2° Função de colião das paredes
         if obj.colliderect(pygame.Rect(X[i], Y[i], 32, 32)):
             rtn = True
     return rtn
-            
+
 #---------------------#
 
 #Funções de sprites---#
@@ -243,7 +243,7 @@ def enemylist(lyt):
         for k in range(len(lyt[i])):
             if lyt[i][k] == "E":
                 enms.append(pygame.Rect(k*32,i*32, 32, 32))
-    
+
     return enms
 
 def mov(self, player):
@@ -261,7 +261,7 @@ def lock_set(lyt):
             if lyt[i][k] == "L":
                 lock = pygame.Rect(k*32,i*32, 32, 32)
                 return lock
-   
+
 def lock_col_set(lyt,scl):
 
 
@@ -270,7 +270,7 @@ def lock_col_set(lyt,scl):
             if lyt[i][k] == "L":
                 scl[0].append(k*32)
                 scl[1].append(i*32)
-   
+
 
 
 def key_set(lyt):
@@ -295,7 +295,7 @@ def lockroom(lyt):
         for k in range(len(lyt[i])):
             if lyt[i][k] == "L":
                 lockroom = True
-                return lockroom            
+                return lockroom
 
 
 #Funções gráficas-----#
@@ -307,8 +307,8 @@ def render(lyt, e, fr):    #Função de renderização: de acordo com a váriave
         else:
             win.blit(PlayerImage[4+(fr//15)], square)
     else:
-        win.blit(PlayerImage[5], square)            
-    
+        win.blit(PlayerImage[5], square)
+
 
 
 
@@ -324,13 +324,13 @@ def render(lyt, e, fr):    #Função de renderização: de acordo com a váriave
                 win.blit(LockImage, pygame.Rect(k*32, i *32, 32, 32))
             if lyt[i][k] == "K":
                 win.blit(KeyImage, pygame.Rect(k*32, i *32, 32, 32))
-    
+
     for i in e:         #Renderiza Inimigos
         if i.x > square.x:
             win.blit(EnemyImage[fr//30], i)
         else:
             win.blit(EnemyImage[2+(fr//30)],i)
-    
+
     pygame.display.flip()   #No final de tudo, atualiza a imagem
 
 
@@ -378,7 +378,7 @@ def keyrender(k):
     key_text = font.render(f"Keys: {k}", True, WHT)
     win.blit(key_text, (10,realH-30))
 
-    
+
 
 
 
@@ -444,7 +444,7 @@ run = True
 
 while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto novo
 
-    
+
 
     currentRoom = vardict[world[ly][lx]]
     localrun = True
@@ -452,8 +452,8 @@ while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto n
     enemies = enemylist(currentRoom)
     locks = lock_set(currentRoom)
     keys = key_set(currentRoom)
-   
-    
+
+
 
     while localrun:  #Loop de quarto: repete o tempo todo
 
@@ -472,7 +472,7 @@ while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto n
 
 
 
-    
+
         #Mover o quadrado
         movement(square, 2)
 
@@ -497,9 +497,9 @@ while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto n
                 pkeys -=1
                 lock_col_set(vardict[world[ly][lx]], [colX,colY])
 
-        
+
         #Detecta o ataque do jogador
-        
+
         #weapon = p_atk(square,mov_check())
 
 
@@ -514,7 +514,7 @@ while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto n
 
         currentframe += 1     #Váriavel para indicar o atual frame do jogo
         if currentframe  == 60:
-            currentframe = 0        
+            currentframe = 0
 
         #Renderiza os objetos
         win.fill(BLK)
@@ -523,7 +523,7 @@ while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto n
         keyrender(pkeys)
         #atk_render(weapon)
         render(currentRoom, enemies, currentframe)
-        
+
 
         #Checa a saída do quarto
         if square.x < 0:                #Sair do quarto...
@@ -532,25 +532,25 @@ while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto n
             square = pygame.Rect(sqrInitPosX,sqrInitPosY,30,30)
             lx -= 1
             localrun = False
-  
 
-        elif square.right > winW:                
+
+        elif square.right > winW:
             sqrInitPosX = 0                                #...pela direita
             sqrInitPosY = square.y
             square = pygame.Rect(sqrInitPosX,sqrInitPosY,30,30)
             lx += 1
             localrun = False
 
-    
-        elif square.y < 0:                
+
+        elif square.y < 0:
             sqrInitPosX = square.x                                #...por cima
             sqrInitPosY = winH - square.height
             square = pygame.Rect(sqrInitPosX,sqrInitPosY,30,30)
             ly -= 1
             localrun = False
 
-    
-        elif square.bottom > winH:                
+
+        elif square.bottom > winH:
             sqrInitPosX = square.x                                #...por cima
             sqrInitPosY = 0
             square = pygame.Rect(sqrInitPosX,sqrInitPosY,30,30)
@@ -572,4 +572,3 @@ while time  == 0:
     win.fill(BLK)
     win.blit(gameover_text, (0,realH/2))
     pygame.display.flip()
-    
