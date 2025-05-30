@@ -5,30 +5,38 @@ from pygame.locals import *
 
 #Imagens;
 
-LockImage = pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\Lock.jpeg", "LockImage")
+LockImage = pygame.image.load("./Images/Lock.jpeg", "LockImage")
 
-KeyImage = pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\Key.png", "KeyImage")
+KeyImage = pygame.image.load("./Images/Key.png", "KeyImage")
 
-WallImage = pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\python\\gameifaut2\\Images\\Wall.png", "Wall")
+WallImage = pygame.image.load("./Images/Wall.png", "Wall")
 
-PlayerImage = [pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_0.png", "Player1"),
-               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_1.png", "Player2"),
-               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_2.png", "Player3"),
-               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_3.png", "Player4"),
+ExitImage = pygame.image.load("./Images/Exit.png")
+
+WinImage = pygame.image.load("./Images/You win!.png")
+
+PlayerImage = [pygame.image.load("./Images/player_0.png", "Player1"),
+               pygame.image.load("./Images/player_1.png", "Player2"),
+               pygame.image.load("./Images/player_2.png", "Player3"),
+               pygame.image.load("./Images/player_3.png", "Player4"),
                
-               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_4.png", "Player1fl"),
-               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_5.png", "Player2fl"),
-               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_6.png", "Player3fl"),
-               pygame.image.load("C:\\Users\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\player_7.png", "Player4fl"),]
+               pygame.image.load("./Images/player_4.png", "Player1fl"),
+               pygame.image.load("./Images/player_5.png", "Player2fl"),
+               pygame.image.load("./Images/player_6.png", "Player3fl"),
+               pygame.image.load("./Images/player_7.png", "Player4fl"),]
 
 
 
-EnemyImage = [pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\scorpion_0.png", "Scorpion1"),
-              pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\scorpion_1.png", "Scorpion2"),
-              pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\scorpion_2.png", "Scorpion1fl"),
-              pygame.image.load("C:\\Users\\otavio.MARTE2\\Documents\\scripts\\python\\gameifaut2\\Images\\scorpion_3.png", "Scorpion2fl"),
-]
+EnemyImage = [pygame.image.load("./Images/scorpion_0.png", "Scorpion1"),
+              pygame.image.load("./Images/scorpion_1.png", "Scorpion2"),
+              pygame.image.load("./Images/scorpion_2.png", "Scorpion1fl"),
+              pygame.image.load("./Images/scorpion_3.png", "Scorpion2fl"),]
 
+#Música
+
+
+pygame.mixer.init()
+MainTheme = pygame.mixer.music.load("./desert chase.mp3", "DesertChase")
 
 
 
@@ -51,27 +59,27 @@ l1 = [["X","X","X","X","L","X","X","X","X"],
       ["X"," "," "," "," "," "," "," ","X"],
       ["X"," ","X"," "," "," ","X"," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
-      ["X","X","X","X"," ","X","X","X","X"]]
+      ["X","X","X","X","X","X","X","X","X"]]
 
 l2 = [["X","X","X","X","X","X","X","X","X"],
       ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," ","E"," "," "," "," "," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," ","K"," "," "," "," "],
-      ["X"," ","X"," "," "," "," "," ","X"],
-      ["X"," ","X"," "," "," "," "," ","X"],
+      ["X"," "," ","K"," "," "," "," ","X"],
+      ["X"," "," "," "," "," "," "," "," "],
       ["X"," "," "," "," "," "," "," ","X"],
+      ["X"," ","X"," ","X"," ","X"," ","X"],
+      ["X","E","X"," ","X"," ","X"," ","X"],
       ["X","X","X","X","X","X","X","X","X"]]
 
-l3 = [[" "," "," "," "," "," "," "," "," "],
-      [" "," "," "," "," "," "," "," "," "],
-      [" "," "," "," "," "," "," "," "," "],
+l3 = [["X","X","X","X","X","X","X","X","X"],
+      ["X","X","X","X","X","X","X","X","X"],
+      ["X","X","X","X","X","X","X","X","X"],
       ["X","X","X","X","X","X","X","X","X"],
       [" "," "," "," "," "," "," "," "," "],
       ["X","X","X","X","X","X","X","X","X"],
-      [" "," "," "," "," "," "," "," "," "],
-      [" "," "," "," "," "," "," "," "," "],
-      [" "," "," "," "," "," "," "," "," "]]
+      ["X","X","X","X","X","X","X","X","X"],
+      ["X","X","X","X","X","X","X","X","X"],
+      ["X","X","X","X","X","X","X","X","X"]]
 
 l4 = [["X","X","X","X"," ","X","X","X","X"],
       ["X"," "," "," "," ","X","X","X","X"],
@@ -84,29 +92,29 @@ l4 = [["X","X","X","X"," ","X","X","X","X"],
       ["X","X","X","X","X","X","X","X","X"]]
 
 l5 = [["X","X","X","X","X","X","X","X","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," ","E"," "," "," ","E"," ","X"],
-      ["X"," "," "," ","K"," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
+      ["X","X","E"," "," "," ","E","X","X"],
+      ["X","X"," "," "," "," "," ","X","X"],
+      ["X","X"," "," "," "," "," ","X","X"],
+      ["X","X"," "," ","K"," "," ","X","X"],
+      ["X","X"," "," "," "," "," ","X","X"],
+      ["X","X"," "," "," "," "," ","X","X"],
       ["X","X"," "," "," "," "," ","X","X"],
       ["X","X","X","X"," ","X","X","X","X"]]
 
 l6 = [["X"," "," ","X"," ","X","X","X","X"],
       ["X"," "," ","X"," "," "," "," ","X"],
+      ["X"," "," ","X"," "," ","X"," ","X"],
       ["X"," "," ","X"," "," "," "," ","X"],
+      ["X","K"," ","X"," "," ","X"," ","X"],
       ["X"," "," ","X"," "," "," "," ","X"],
-      ["X","K"," ","X"," "," "," "," ","X"],
-      ["X"," "," ","X"," "," "," "," ","X"],
-      ["X"," "," ","X"," "," "," "," ","X"],
+      ["X"," "," ","X"," "," ","X"," ","X"],
       ["X"," "," ","X"," "," "," "," ","X"],
       ["X","X","X","X"," ","X","X","X","X"]]
 
-l7 = [["X","X","X","X"," ","X","X","X","X"],
-      ["X"," "," ","X","X","X"," "," ","X"],
+l7 = [["X","X","X","X","K","X","X","X","X"],
+      ["X","X","X","X","X","X","X","X","X"],
       ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
+      ["X"," "," "," ","E"," "," "," ","X"],
       ["L"," "," "," "," "," "," "," ","X"],
       ["X"," "," ","X","X","X","X"," ","X"],
       ["X"," "," ","X"," "," "," "," ","X"],
@@ -114,42 +122,42 @@ l7 = [["X","X","X","X"," ","X","X","X","X"],
       ["X"," "," ","X"," ","X","X","X","X"]]
 
 l8 = [["X","X","X","X","L","X","X","X","X"],
-      ["X","X"," "," "," "," "," "," ","X"],
+      ["X"," "," "," "," ","X","X","X","X"],
+      ["X","X","X"," "," ","X","X","X","X"],
+      ["X"," "," "," "," ","X","X","X","X"],
+      ["X","X","X"," "," "," "," "," "," "],
       ["X"," "," "," "," "," "," "," ","X"],
-      ["X","X"," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," ","X"," "," "],
-      ["X"," ","X"," "," "," "," "," ","X"],
-      ["X"," "," "," "," ","X"," "," ","X"],
-      ["X"," "," ","X"," "," "," "," ","X"],
+      ["X","X","X"," "," "," "," "," ","X"],
+      ["X"," "," "," "," "," "," "," ","X"],
       ["X","X","X","X","X","X","X","X","X"]]
 
-l9 = [["X","X","X","X"," ","X","X","X","X"],
+l9 = [["X","X","X","X","L","X","X","X","X"],
       ["X"," "," ","X"," "," "," "," "," "],
       ["X"," "," ","X"," "," "," "," "," "],
-      ["X"," "," ","X","X","X","X","X","X"],
+      ["X","X"," ","x","X","X","X","X","X"],
       ["X"," "," "," "," "," "," "," "," "],
       ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
+      ["X","X"," "," "," "," "," "," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
       ["X","X","X","X"," ","X","X","X","X"]]
 
 lA = [["X","X","X","X","X","X","X","X","X"],
       [" "," "," "," "," "," "," "," ","X"],
       [" "," "," "," "," "," "," "," ","X"],
-      ["X","X","X"," "," "," "," "," ","X"],
-      [" "," ","X","X","X"," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X","X","X","X","X","X","X","X","X"]]
+      ["X","X","X"," "," ","X","X"," ","X"],
+      [" "," "," "," "," ","X"," "," ","X"],
+      ["X"," "," ","X","X","X"," "," ","X"],
+      ["X"," "," ","X"," "," "," "," ","X"],
+      ["X"," "," ","X"," "," "," ","E","X"],
+      ["X","X","X","X"," ","X","X","X","X"]]
 
-lB = [["X","X","X","X"," ","X","X","X","X"],
+lB = [["X","X","X","X","W","X","X","X","X"],
       ["X"," "," "," "," "," "," "," ","X"],
+      ["X"," ","X"," "," "," ","X"," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
+      ["X"," ","X"," "," "," ","X"," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
-      [" "," "," "," "," "," "," "," "," "],
-      ["X"," "," "," "," "," "," "," ","X"],
-      ["X"," "," "," "," "," "," "," ","X"],
+      ["X"," ","X"," "," "," ","X"," ","X"],
       ["X"," "," "," "," "," "," "," ","X"],
       ["X","X","X","X"," ","X","X","X","X"]]
 
@@ -324,6 +332,8 @@ def render(lyt, e, fr):    #Função de renderização: de acordo com a váriave
                 win.blit(LockImage, pygame.Rect(k*32, i *32, 32, 32))
             if lyt[i][k] == "K":
                 win.blit(KeyImage, pygame.Rect(k*32, i *32, 32, 32))
+            if lyt[i][k] == "W":
+                win.blit(ExitImage, pygame.Rect(k*32, i *32, 32, 32))               
     
     for i in e:         #Renderiza Inimigos
         if i.x > square.x:
@@ -365,7 +375,7 @@ def lock_delete(lck, obj, lyt,pk):
 #Outras funções-------#
 
 
-time = 60*60
+time = 100*60
 pygame.font.init()
 font = pygame.font.SysFont(pygame.font.get_default_font(), 36)
 
@@ -437,12 +447,17 @@ ly = 4
 
 
 
+pygame.mixer.music.play(0,0,0)
 
 
 
 run = True
+w = False
 
 while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto novo
+
+    if w:
+        run = False
 
     
 
@@ -542,8 +557,12 @@ while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto n
             localrun = False
 
     
-        elif square.y < 0:                
-            sqrInitPosX = square.x                                #...por cima
+        elif square.y < 0:                                #...por cima
+            if ly == 0:
+                w = True
+                localrun = False
+                run = False             #Vence o jogo se sair de lB 
+            sqrInitPosX = square.x
             sqrInitPosY = winH - square.height
             square = pygame.Rect(sqrInitPosX,sqrInitPosY,30,30)
             ly -= 1
@@ -560,6 +579,23 @@ while run:  #Loop de entrada: repete toda vez que o jogador entra em um quarto n
 
         #Define o FPS
         clock.tick(60)
+
+
+while w:
+    for e in pygame.event.get():    #Código para sair do jogo
+            if e.type == QUIT:
+                pygame.quit()
+                sys.exit()
+    gameover = pygame.font.SysFont(pygame.font.get_default_font(), 40)
+    gameover_text = font.render("YOU WIN! :)", True, BLK)
+    win.fill(WHT)
+
+    win.blit(WinImage, pygame.Rect(0,0,0,0))
+    win.blit(gameover_text, (0,winH))
+    pygame.display.flip()   
+
+
+
 
 while time  == 0:
 
